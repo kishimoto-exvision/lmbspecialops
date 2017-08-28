@@ -20,13 +20,16 @@ from tensorflow.python.framework import ops
 import os
 import warnings
 
-if 'LMBSPECIALOPS_LIB' in os.environ:
-    _lib_path = os.environ['LMBSPECIALOPS_LIB']
-else:  # try to find the lib in the build directory relative to this file
-    _lib_path = os.path.abspath(os.path.join(os.path.split(__file__)[0], '..', 'build', 'lib', 'lmbspecialops.so'))
-if not os.path.isfile(_lib_path):
-    raise ValueError(
-        'Cannot find lmbspecialops.so . Set the environment variable LMBSPECIALOPS_LIB to the path to lmbspecialops.so file')
+# Tried to debug it with Visual Studio.  But tf.load_op_library cannot load op on Windows.
+_lib_path = "D:/GitHub/kishimoto-exvision/demon/lmbspecialops/build/lib/Release/lmbspecialops.dll"
+if False:
+    if 'LMBSPECIALOPS_LIB' in os.environ:
+        _lib_path = os.environ['LMBSPECIALOPS_LIB']
+    else:  # try to find the lib in the build directory relative to this file
+        _lib_path = os.path.abspath(os.path.join(os.path.split(__file__)[0], '..', 'build', 'lib', 'lmbspecialops.so'))
+    if not os.path.isfile(_lib_path):
+        raise ValueError(
+            'Cannot find lmbspecialops.so . Set the environment variable LMBSPECIALOPS_LIB to the path to lmbspecialops.so file')
 lmbspecialopslib = tf.load_op_library(_lib_path)
 print('Using {0}'.format(_lib_path), flush=True)
 
