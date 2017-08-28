@@ -3,4 +3,9 @@
 
 #cmakedefine BUILD_WITH_CUDA
 
+#ifdef _MSC_VER
+#define COMPILER_MSVC
+#define NOMINMAX
+#endif
+
 #endif /* CONFIG_H_ */
